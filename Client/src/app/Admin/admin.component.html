@@ -1,0 +1,119 @@
+<!-- Available tables -->
+<div class="alert alert-danger row" *ngIf="isDubbleNameUsed() != null">
+  <strong>Error!</strong> {{isDubbleNameUsed()}}
+</div>
+<div class="row text-center">
+  <div class="col-10 offset-1 configdiv">
+
+    <table class="table table-bordered configTable text-center">
+      <thead>
+      <th>Name</th>
+      <th>active</th>
+      <th>Change</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let config of TableConfiguration">
+          <td>
+            {{config.Name}}
+          </td>
+          <td>
+            <!-- Rounded switch -->
+            <label class="switch">
+              <input type="checkbox" [checked]="config.Active" (click)="PostValues()">
+              <span class="slider round"></span>
+            </label>
+          </td>
+          <td>
+            <input type="button" class="btn btn-primary configbuttons" value="Select" (click)="selectConfiguration(config.Name)" />
+            <input type="button" class="btn btn-danger configbuttons" value="Delete" (click)="deleteConfiguration(config.Name)" />
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="99" style="text-align: left;">
+            <input type="button" class="btn btn-lg btn-success btn-block" [disabled]="isEmptyConfiguration()" (click)="NewConfiguration()" value="Add row" />
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+
+
+
+<!-- Modify table -->
+
+<div class="row" *ngIf="selectedTable != null">
+
+  <!-- Toolbox  -->
+  <div id="toolbox" class="toolbox col-2">
+
+    <div class="text-center">
+      <input type="button" class="btn btn-primary btn-lg configbuttons" value="Save" [disabled]="isDubbleNameUsed() != null" title="test" data-toggle="toolstip" data-placement="top" (click)="SaveConfiguration()" />
+    </div>
+    <div cdkDropList
+         id="toolboxList"
+         class="row"
+         cdkDropListData={{todo}}
+         [cdkDropListConnectedTo]=ConnectedToList
+         (cdkDropListDropped)="drop($event)"
+         [cdkDropListOrientation]="vertical">
+      <div class="toolBoxItem" [ngStyle]="{ 'background-image': 'url(' + item + ')'}" *ngFor="let item of todo" cdkDrag></div>
+    </div>
+  </div>
+  <!-- Table  -->
+  <div id="modifyTable" class="col-sm-12">
+
+      <table id="table" class="table table-bordered">
+        <thead>
+
+        <tr>
+
+          <!-- First Column = toolbox -->
+          <th> <h1><input [(ngModel)]="selectedTable.Name" class="text-center"> </h1></th>
+          <th class="text-center" *ngFor="let cheader of selectedTable.Table.ColumnHeaders">
+            <input [(ngModel)]="cheader.Value" class="text-center" />
+            <br />
+            <input type="button" class="btn btn-sm btn-danger " value="Delete Column" (click)="RemoveColumn(cheader.Id)" />
+          </th>
+          <th>
+            <input type="button" class="btn btn-lg btn-success " value="Add Column" (click)="AddColumn()" />
+          </th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let rheader of selectedTable.Table.RowHeaders;let i= index">
+            <th>
+              <input [(ngModel)]="rheader.Value">
+            </th>
+            <td *ngFor="let tlist of GetTableList(rheader.Id)">
+              <div cdkDropList
+                   class="row droplist"
+                   [style.min-width.px]="GetTableLength(rheader.Id)"
+                   id={{tlist.UniqueId}}
+                   cdkDropListData={{tlist.List}}
+                   [cdkDropListConnectedTo]=ConnectedToList
+                   (cdkDropListDropped)="drop($event)"
+                   cdkDropListOrientation="horizontal">
+                <div class="box" [ngStyle]="{ 'background-image': 'url(' + item + ')'}" *ngFor="let item of tlist.List" cdkDrag></div>
+              </div>
+            </td>
+            <td>
+              <input type="button" class="btn btn-sm btn-danger " value="Delete" (click)="RemoveRow(rheader.Id)" style="height:100%" />
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="99" style="text-align: left;">
+              <input type="button" class="btn btn-lg btn-success btn-block " value="Add Row" (click)="AddRow()" />
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+</div>
+</div>
