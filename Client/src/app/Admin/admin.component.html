@@ -1,88 +1,114 @@
-<!-- Available tables -->
-<div class="alert alert-danger row" *ngIf="isDubbleNameUsed() != null">
-  <strong>Error!</strong> {{isDubbleNameUsed()}}
-</div>
-<div class="row text-center">
-  <div class="col-10 offset-1 configdiv">
+<div (window:scroll)="onWindowScroll($event)">
 
-    <table class="table table-bordered configTable text-center">
-      <thead>
-      <th>Name</th>
-      <th>active</th>
-      <th>Change</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let config of TableConfiguration">
-          <td>
-            {{config.Name}}
-          </td>
-          <td>
-            <!-- Rounded switch -->
-            <label class="switch">
-              <input type="checkbox" [checked]="config.Active" (click)="PostValues()">
-              <span class="slider round"></span>
-            </label>
-          </td>
-          <td>
-            <input type="button" class="btn btn-primary configbuttons" value="Select" (click)="selectConfiguration(config.Name)" />
-            <input type="button" class="btn btn-danger configbuttons" value="Delete" (click)="deleteConfiguration(config.Name)" />
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="99" style="text-align: left;">
-            <input type="button" class="btn btn-lg btn-success btn-block" [disabled]="isEmptyConfiguration()" (click)="NewConfiguration()" value="Add row" />
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+
+  <!-- Available tables -->
+  <div class="alert alert-danger row" *ngIf="isDubbleNameUsed() != null">
+    <strong>Error!</strong> {{isDubbleNameUsed()}}
   </div>
-</div>
+  <div class="row text-center">
+    <div class="col-10 offset-1 configdiv">
 
-
-
-
-<!-- Modify table -->
-
-<div class="row" *ngIf="selectedTable != null">
-
-  <!-- Toolbox  -->
-  <div id="toolbox" class="toolbox col-2">
-
-    <div class="text-center">
-      <input type="button" class="btn btn-primary btn-lg configbuttons" value="Save" [disabled]="isDubbleNameUsed() != null" title="test" data-toggle="toolstip" data-placement="top" (click)="SaveConfiguration()" />
-    </div>
-    <div cdkDropList
-         id="toolboxList"
-         class="row"
-         cdkDropListData={{todo}}
-         [cdkDropListConnectedTo]=ConnectedToList
-         (cdkDropListDropped)="drop($event)"
-         [cdkDropListOrientation]="vertical">
-      <div class="toolBoxItem" [ngStyle]="{ 'background-image': 'url(' + item + ')'}" *ngFor="let item of todo" cdkDrag></div>
+      <table class="table table-bordered configTable text-center">
+        <thead>
+        <th>Name</th>
+        <th>active</th>
+        <th>Change</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let config of TableConfiguration">
+            <td>
+              {{config.Name}}
+            </td>
+            <td>
+              <!-- Rounded switch -->
+              <label class="switch">
+                <input type="checkbox" [checked]="config.Active" (click)="PostValues()">
+                <span class="slider round"></span>
+              </label>
+            </td>
+            <td>
+              <input type="button" class="btn btn-primary configbuttons" value="Select" (click)="selectConfiguration(config.Name)" />
+              <input type="button" class="btn btn-danger configbuttons" value="Delete" (click)="deleteConfiguration(config.Name)" />
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="99" style="text-align: left;">
+              <input type="button" class="btn btn-lg btn-success btn-block" [disabled]="isEmptyConfiguration()" (click)="NewConfiguration()" value="Add row" />
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
-  <!-- Table  -->
-  <div id="modifyTable" class="col-sm-12">
 
-      <table id="table" class="table table-bordered">
+
+
+
+  <!-- Modify table -->
+  <div class="row" *ngIf="selectedTable != null">
+
+
+
+    <!-- Toolbox  -->
+    <div id="toolbox" class="toolbox col-3">
+      <div class="text-center">
+        <input type="button" class="btn btn-primary btn-lg configbuttons" value="Save" [disabled]="isDubbleNameUsed() != null" title="test" data-toggle="toolstip" data-placement="top" (click)="SaveConfiguration()" />
+      </div>
+      <div cdkDropList
+           id="toolboxList"
+           class="row"
+           cdkDropListData={{todo}}
+           [cdkDropListConnectedTo]=ConnectedToList
+           (cdkDropListDropped)="drop($event)"
+           [cdkDropListOrientation]="vertical">
+
+        <!-- Show image -->
+        <div class="container showImage" *ngFor="let item of todo" cdkDrag>
+          <div class="card">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="box1" [ngStyle]="{ 'background-image': 'url(' + item + ')'}"></div>
+              </div>
+              <div class="col-sm-8 text-center p-2">
+                Informatie blok
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      <!-- add new image -->
+      <div id="addImage"><input type="button" class="btn btn-primary btn-lg btn-block" value="Add image" /></div>
+      </div>
+
+    </div>
+
+
+
+
+    <!-- Table  -->
+    <div id="modifyTable" class="col-sm-12">
+
+      <table id="editTable" class="table table-bordered">
         <thead>
 
-        <tr>
+          <tr>
 
-          <!-- First Column = toolbox -->
-          <th> <h1><input [(ngModel)]="selectedTable.Name" class="text-center"> </h1></th>
-          <th class="text-center" *ngFor="let cheader of selectedTable.Table.ColumnHeaders">
-            <input [(ngModel)]="cheader.Value" class="text-center" />
-            <br />
-            <input type="button" class="btn btn-sm btn-danger " value="Delete Column" (click)="RemoveColumn(cheader.Id)" />
-          </th>
-          <th>
-            <input type="button" class="btn btn-lg btn-success " value="Add Column" (click)="AddColumn()" />
-          </th>
-
-        </tr>
+            <!-- First Column = toolbox -->
+            <th> <h4><input [(ngModel)]="selectedTable.Name" class="text-center"> </h4></th>
+            <th class="text-center" *ngFor="let cheader of selectedTable.Table.ColumnHeaders">
+              <input [(ngModel)]="cheader.Value" class="text-center" />
+              <br />
+              <input type="button" class="btn btn-sm btn-danger " value="Delete Column" (click)="RemoveColumn(cheader.Id)" />
+            </th>
+            <th>
+              <input type="button" class="btn btn-lg btn-success " value="Add Column" (click)="AddColumn()" />
+            </th>
+          </tr>
         </thead>
         <tbody>
 
@@ -93,13 +119,26 @@
             <td *ngFor="let tlist of GetTableList(rheader.Id)">
               <div cdkDropList
                    class="row droplist"
-                   [style.min-width.px]="GetTableLength(rheader.Id)"
                    id={{tlist.UniqueId}}
                    cdkDropListData={{tlist.List}}
                    [cdkDropListConnectedTo]=ConnectedToList
-                   (cdkDropListDropped)="drop($event)"
-                   cdkDropListOrientation="horizontal">
-                <div class="box" [ngStyle]="{ 'background-image': 'url(' + item + ')'}" *ngFor="let item of tlist.List" cdkDrag></div>
+                   (cdkDropListDropped)="drop($event)">
+
+                <!-- Show image -->
+                <div class="container" style="max-width:300px; min-width:300px;" *ngFor="let item of tlist.List" cdkDrag>
+                  <div class="card">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="box1" [ngStyle]="{ 'background-image': 'url(' + item + ')'}"></div>
+                      </div>
+                      <div class="col-sm-8 text-center p-2">
+                        Informatie blok
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--<div class="box" [ngStyle]="{ 'background-image': 'url(' + item + ')'}" *ngFor="let item of tlist.List" cdkDrag></div>-->
               </div>
             </td>
             <td>
@@ -115,5 +154,7 @@
           </tr>
         </tfoot>
       </table>
+    </div>
+  </div>
 </div>
-</div>
+

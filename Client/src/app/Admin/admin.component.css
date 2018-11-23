@@ -1,5 +1,5 @@
 .row {
-  margin:2%;
+  margin: 2%;
 }
 
 .pointer {
@@ -12,6 +12,15 @@ input {
 
 
 /*Config*/
+.box1 {
+  border: 1px solid black;
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  display: table;
+}
+
+
 
 .box {
   border: 1px solid black;
@@ -22,12 +31,6 @@ input {
   margin: 10px;
 }
 
-
-#modifyTable {
-margin-left: 20%;
-}
-
-
 .configbuttons {
   margin: 5px;
 }
@@ -36,37 +39,6 @@ table {
   table-layout: auto;
   width: 100%;
 }
-
-
-
-/*ToolBox*/
-.toolbox {
-  background-color: ghostwhite;
-  padding: 10px;
-  /*margin: 10px;*/
-  overflow: auto;
-  position: relative;
-
-}
-
-.toolBoxItem {
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background-size: cover;
-  margin: 10px;
-}
-
-#toolbox {
-  position: absolute;
-  z-index: 1;
-  height: 100%;
-
-}
-
-
-
-
 
 /*configtable*/
 .configTable {
@@ -88,6 +60,63 @@ table {
 
 
 
+/*ToolBox*/
+.toolbox {
+  background-color: ghostwhite;
+  padding: 10px;
+  /*margin: 10px;*/
+  overflow: auto;
+  position: relative;
+}
+
+.toolBoxItem {
+  border: 1px solid black;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  margin: 10px;
+}
+
+#toolbox {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  min-width: 320px;
+}
+
+#addImage {
+  margin-top:10px;
+  width: 100%;
+}
+
+.showImage {
+  max-width: 300px;
+  min-width: 300px
+}
+
+
+
+
+
+
+
+/*edit table*/
+#toolboxList {
+  margin-bottom: 10%;
+}
+
+@media (max-width:700px) {
+
+  #modifyTable {
+    margin-left: 350px;
+  }
+}
+
+@media (min-width:701px) {
+  #modifyTable {
+    margin-left: 30%;
+  }
+}
 
 
 

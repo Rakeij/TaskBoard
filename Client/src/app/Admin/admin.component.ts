@@ -1,9 +1,10 @@
 import { Component, OnInit, Injectable, HostListener } from "@angular/core";
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RequestOptions } from "@angular/http";
 import { stringify } from "querystring";
 import { environment } from "../../environments/environment";
+
 
 declare var $: any;
 
@@ -34,7 +35,7 @@ export class Admin implements OnInit {
     }
   }
 
- 
+
   public GetAllConfigurations() {
     this.http.get(this.url_GetAllConfiguration).subscribe((apiResult: TableConfiguration[]) => {
       for (var result of apiResult) {
@@ -76,18 +77,21 @@ export class Admin implements OnInit {
     return list;
   }
 
-  public GetTableLength(ColHeader: string): number {
-    var result: number;
-    result = 1;
-    for (var tl of this.selectedTable.Table.TableList) {
-      if (tl.CId === ColHeader && result < tl.List.length) {
-        result = tl.List.length;
-      }
-    }
-    return (result * 80) + 70;
-  }
+
+
+
 
   todo = [
+    '../../assets/image/Appel.jpg',
+    '../../assets/image/lunch.jpg',
+    '../../assets/image/middagmaal-2.png',
+    '../../assets/image/speeltuin.png',
+    '../../assets/image/zondag-geel.png',
+    '../../assets/image/Appel.jpg',
+    '../../assets/image/lunch.jpg',
+    '../../assets/image/middagmaal-2.png',
+    '../../assets/image/speeltuin.png',
+    '../../assets/image/zondag-geel.png',
     '../../assets/image/Appel.jpg',
     '../../assets/image/lunch.jpg',
     '../../assets/image/middagmaal-2.png',
@@ -110,13 +114,15 @@ export class Admin implements OnInit {
   public drop(event: CdkDragDrop<string[]>) {
 
     for (var table of this.selectedTable.Table.TableList) {
-      if (table.UniqueId == event.container.id) {
-        table.List.splice(table.List.length, 0, event.previousContainer.data.toString().split(",")[event.previousIndex]);
-      }
       //remove from previous list
       if (table.UniqueId === event.previousContainer.id) {
         table.List.splice(event.previousIndex, 1);
       }
+      // add in new array
+      if (table.UniqueId == event.container.id) {
+        table.List.splice(event.currentIndex, 0, event.previousContainer.data.toString().split(",")[event.previousIndex]);
+      }
+
     }
     return;
   }
@@ -125,7 +131,6 @@ export class Admin implements OnInit {
     this.selectedTable.Table.TableList.forEach((item) => {
       this.ConnectedToList.push(item.UniqueId);
     });
-    console.log(this.ConnectedToList);
   }
 
   //Configuration Buttons
@@ -240,6 +245,43 @@ export class Admin implements OnInit {
         []));
     });
     this.UpdateSelectedTable();
+  }
+
+
+
+
+
+
+  // ScrollConfiguration
+  private toolboxPosition: number;
+  private firstCall = true;
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll($event) {
+    var element = document.getElementById('toolbox');
+    if (element == null)
+      return;
+
+    if (this.firstCall) {
+      this.toolboxPosition = document.getElementById('toolbox').offsetTop;
+      this.firstCall = false;
+    }
+
+    var scrollLeft = document.getElementsByTagName('html')[0].scrollLeft;
+    var scrollTop = document.getElementsByTagName('html')[0].scrollTop;
+    //var toolboxPosition = document.getElementById('toolbox').offsetTop;
+    document.getElementById('toolbox').style.marginLeft = scrollLeft.toString() + "px";
+    if (this.toolboxPosition <= scrollTop) {
+      document.getElementById('toolbox').style.marginTop = (scrollTop - this.toolboxPosition).toString() + "px";
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (document.getElementById('toolbox') == null)
+      return;
+
+    this.toolboxPosition = document.getElementById('toolbox').offsetTop;
+    this.firstCall = true;
   }
 }
 

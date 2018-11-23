@@ -1,5 +1,32 @@
+<!-- navigation -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/Home" routerLinkActive="active">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item" *ngIf="canActivate()">
+        <a class="nav-link" routerLink="/Admin" routerLinkActive="active">Admin</a>
+      </li>
+
+
+      
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="Login" routerLinkActive="active">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center" (window:scroll)="onWindowScroll($event)">
+<div style="text-align:center">
   <h1>
     Daily Taskboard
   </h1>
@@ -7,3 +34,6 @@
 </div>
 
 <router-outlet></router-outlet>
+<!--<main [@routerTransition]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</main>-->

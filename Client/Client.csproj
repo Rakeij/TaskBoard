@@ -4,6 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="src\app\Login\" />
+    <Folder Include="src\app\Auth\" />
+    <Folder Include="src\app\Shared\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="ng build --prod --output-path C:\inetpub\test" />
   </Target>
