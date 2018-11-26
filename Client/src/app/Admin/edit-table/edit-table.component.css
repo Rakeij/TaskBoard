@@ -1,0 +1,23 @@
+@media only screen and (max-width: 1200px) {
+  #modifyTable {
+    margin-left: 350px;
+  }
+}
+@media only screen and (min-width: 1201px) {
+  #modifyTable {
+    margin-left: 30%;
+  }
+}
+
+.imageBox {
+  border: 1px solid black;
+  width: 90px;
+  height: 90px;
+  background-size: cover;
+  display: table;
+  margin-top: 5px;
+}
+
+textarea {
+  resize: none;
+}

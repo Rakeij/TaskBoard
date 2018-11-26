@@ -55,6 +55,27 @@ namespace Server.Controllers
       }
     }
 
+    [HttpPost]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    public string Delete([FromBody]Models.TableConfiguration value)
+    {
+      try
+      {
+        if (value == null)
+          return "Empty";
+
+        var filePath = System.Web.Hosting.HostingEnvironment.MapPath(path);
+        var document = value.Id + ".json";
+
+        File.Delete(filePath + document);
+        return filePath + document;
+      }
+      catch (Exception ex)
+      {
+        return ex.Message;
+      }
+    }
+
     [HttpGet]
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public void New()
@@ -78,6 +99,27 @@ namespace Server.Controllers
         writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new Models.TableConfiguration(newId)));
       }
 
+    }
+
+    [HttpGet]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    public void ActivateDeActivateConfig([FromBody]Models.TableConfiguration value)
+    {
+// TODO alleen active omzetten. niet hele config update
+      if (value == null)
+        return;
+
+        var filePath = System.Web.Hosting.HostingEnvironment.MapPath(path);
+        var document = value.Id + ".json";
+
+
+        if (!Directory.Exists(filePath))
+          Directory.CreateDirectory(filePath);
+
+      using (StreamWriter writer = new StreamWriter(filePath + document, false))
+      {
+        writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(value));
+      }
     }
   }
 }

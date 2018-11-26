@@ -12,10 +12,17 @@ import { HttpClientModule } from '@angular/common/http';
 //authentication
 import { AuthGuard } from './Auth/auth.guard';
 import { LoginToken } from './shared/logintoken';
+
+//shared objects
+import { AdminConfig } from 'src/app/Admin/shared/AdminConfig';
+
 // routing
 import { Admin } from './admin/admin.component';
 import { Login } from './login/login.component';
 import { Home } from './home/home.component';
+import { ToolboxComponent } from './Admin/toolbox/toolbox.component';
+import { EditTableComponent } from './Admin/edit-table/edit-table.component';
+import { SelectTableComponent } from './Admin/select-table/select-table.component';
 
 let routes = [
   { path: "", component: Home},
@@ -30,7 +37,10 @@ let routes = [
     AppComponent,
     Admin,
     Login,
-    Home
+    Home,
+    ToolboxComponent,
+    EditTableComponent,
+    SelectTableComponent
   ],
   imports: [
     FormsModule,
@@ -44,7 +54,7 @@ let routes = [
       })
 
   ],
-  providers: [AuthGuard, LoginToken],
+  providers: [AuthGuard, LoginToken, AdminConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\app\Admin\tableConfiguration.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="src\app\Login\" />
     <Folder Include="src\app\Auth\" />
     <Folder Include="src\app\Shared\" />

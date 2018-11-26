@@ -38,12 +38,12 @@ namespace Server.Models
   {
     public TableList()
     {
-      this.List = new List<string>();
+      this.List = new List<ToolBoxItem>();
     }
     public String UniqueId { get; set; }
     public string RId { get; set; }
     public string CId { get; set; }
-    public List<String> List { get; set; }
+    public List<ToolBoxItem> List { get; set; }
   }
 
 }

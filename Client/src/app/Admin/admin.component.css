@@ -1,4 +1,8 @@
 .row {
+  margin: 0%;
+}
+
+.subrow {
   margin: 2%;
 }
 
@@ -12,28 +16,27 @@ input {
 
 
 /*Config*/
-.box1 {
+/*.box1 {
   border: 1px solid black;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   background-size: cover;
   display: table;
-}
+  margin-top:5px;
+}*/
 
 
 
-.box {
+/*.box {
   border: 1px solid black;
   width: 60px;
   height: 60px;
   background-size: cover;
   display: table;
   margin: 10px;
-}
+}*/
 
-.configbuttons {
-  margin: 5px;
-}
+
 
 table {
   table-layout: auto;
@@ -41,30 +44,16 @@ table {
 }
 
 /*configtable*/
-.configTable {
-  width: 50%;
-  margin: auto;
-}
 
-.configdiv {
-  background-color: #f8f9fa !important;
-  padding: 2%;
-}
-
-
-.droplist {
-  min-height: 60px;
-}
 
 
 
 
 
 /*ToolBox*/
-.toolbox {
+/*.toolbox {
   background-color: ghostwhite;
   padding: 10px;
-  /*margin: 10px;*/
   overflow: auto;
   position: relative;
 }
@@ -85,14 +74,14 @@ table {
 }
 
 #addImage {
-  margin-top:10px;
+  margin-top: 10px;
   width: 100%;
 }
 
 .showImage {
-  max-width: 300px;
-  min-width: 300px
-}
+  max-width: 320px;
+  min-width: 320px
+}*/
 
 
 
@@ -101,23 +90,6 @@ table {
 
 
 /*edit table*/
-#toolboxList {
-  margin-bottom: 10%;
-}
-
-@media (max-width:700px) {
-
-  #modifyTable {
-    margin-left: 350px;
-  }
-}
-
-@media (min-width:701px) {
-  #modifyTable {
-    margin-left: 30%;
-  }
-}
-
 
 
 

@@ -1,0 +1,48 @@
+
+/*ToolBox*/
+.toolbox {
+  background-color: ghostwhite;
+  padding: 10px;
+  /*margin: 10px;*/
+  overflow: auto;
+  position: relative;
+}
+
+.toolBoxItem {
+  border: 1px solid black;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  margin: 10px;
+}
+
+#toolbox {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  min-width: 320px;
+}
+
+#addImage {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.showImage {
+  max-width: 320px;
+  min-width: 320px; 
+}
+
+
+.imageBox {
+  border: 1px solid black;
+  width: 90px;
+  height: 90px;
+  background-size: cover;
+  display: table;
+  margin-top: 5px;
+}
+
+textarea {
+  resize: none;
+}

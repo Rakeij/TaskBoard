@@ -1,0 +1,18 @@
+.configTable {
+  width: 50%;
+  margin: auto;
+}
+
+.configdiv {
+  background-color: #f8f9fa !important;
+  padding: 2%;
+}
+
+
+.droplist {
+  min-height: 60px;
+}
+
+.configbuttons {
+  margin: 5px;
+}

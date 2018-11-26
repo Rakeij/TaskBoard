@@ -10,8 +10,6 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-
-    console.log(this.loginToken.IsValid);
     if (this.loginToken.IsValid)
       return true;
 
