@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminConfig } from 'src/app/Admin/shared/AdminConfig';
-import { ToolboxItem } from '../shared/ToolboxItem';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-toolbox',
@@ -11,44 +9,40 @@ import { environment } from '../../../environments/environment';
 })
 export class ToolboxComponent implements OnInit {
 
-  private url_ToolBox_GetAllItems= "";
-  private url_ToolBox_Save = "";
 
-  constructor(private http: HttpClient, private aconfig: AdminConfig) {
-    if (environment.production) {
-      this.url_ToolBox_GetAllItems = "api/ToolBox/GetAllItems";
-      this.url_ToolBox_Save = "api/ToolBox/Save";
-    }
-    else {
-      this.url_ToolBox_GetAllItems = "http://localhost:4201/ToolBox/GetAllItems";
-      this.url_ToolBox_Save = "http://localhost:4201/ToolBox/Save";
-    }
+
+  constructor(public aconfig: AdminConfig) {
   }
 
   ngOnInit() {
-    this.GetAllToolBoxItems();
+    this.aconfig.GetAllToolBoxItems();
   }
 
-  
-  // api calls
-  public GetAllToolBoxItems() {
-    this.aconfig.ToolBoxItems = [];
-    this.http.get(this.url_ToolBox_GetAllItems).subscribe((apiResult: ToolboxItem[]) => {
-      for (var result of apiResult) {
-        this.aconfig.ToolBoxItems.push(result);
+
+  public drop(event: CdkDragDrop<string[]>) {
+    console.log(event.previousContainer.id);
+    if (event.container == event.previousContainer) {
+      // modify in own table
+      for (var table of this.aconfig.SelectedTable.Table.TableList) {
+        if (table.UniqueId === event.container.id) {
+          var selectedItem = table.List[event.previousIndex];
+          table.List.splice(event.previousIndex, 1);
+          table.List.splice(event.currentIndex, 0, selectedItem);
+        }
       }
-    }, error => { });
+    }
+   
+    else if (event.container.id == "toolboxList") {
+      // delete from list
+      for (var table of this.aconfig.SelectedTable.Table.TableList) {
+        //remove from previous list
+        if (table.UniqueId === event.previousContainer.id) {
+          table.List.splice(event.previousIndex, 1);
+        }
+      }
+    }
+    return;
   }
 
-  public SaveToolBox() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
-      })
-    };
-    this.http.post(this.url_ToolBox_Save, JSON.stringify(this.aconfig.ToolBoxItems), httpOptions).subscribe((result) => {
-      alert('updated');
-    });
-  }
+
 }

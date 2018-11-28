@@ -6,21 +6,15 @@
   /*margin: 10px;*/
   overflow: auto;
   position: relative;
-}
-
-.toolBoxItem {
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background-size: cover;
-  margin: 10px;
+  min-width: 380px;
+  max-width: 380px;
 }
 
 #toolbox {
   position: absolute;
   z-index: 1;
   height: 100%;
-  min-width: 320px;
+  /*min-width: 320px;*/
 }
 
 #addImage {
@@ -28,21 +22,32 @@
   width: 100%;
 }
 
-.showImage {
-  max-width: 320px;
-  min-width: 320px; 
-}
-
-
-.imageBox {
-  border: 1px solid black;
-  width: 90px;
-  height: 90px;
-  background-size: cover;
-  display: table;
-  margin-top: 5px;
+.img-thumbnail {
+  /*min-width: 60px;
+  min-height:60px;*/
+  max-height: 90px;
+  max-width: 90px;
+  /*prevent dragging image*/
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 textarea {
   resize: none;
+  height: 100%;
+  width: 100%;
+  border:none;
+}
+
+.configbuttons {
+  margin: 5px;
+}
+
+
+.img-thumbnail {
+  margin: 5px;
 }

@@ -6,9 +6,9 @@
       <tr>
 
         <!-- First Column = toolbox -->
-        <th> <h4><input [(ngModel)]="aconfig.SelectedTable.Name" class="text-center"> </h4></th>
+        <th style="min-width:150px"> <h4><input [(ngModel)]="aconfig.SelectedTable.Name" class="form-control form-group"> </h4></th>
         <th class="text-center" *ngFor="let cheader of aconfig.SelectedTable.Table.ColumnHeaders">
-          <input [(ngModel)]="cheader.Value" class="text-center" />
+          <input [(ngModel)]="cheader.Value" class="text-center form-control" />
           <br />
           <input type="button" class="btn btn-sm btn-danger " value="Delete Column" (click)="RemoveColumn(cheader.Id)" />
         </th>
@@ -21,35 +21,38 @@
 
       <tr *ngFor="let rheader of aconfig.SelectedTable.Table.RowHeaders;let i= index">
         <th>
-          <input [(ngModel)]="rheader.Value">
+          <input class="form-control" [(ngModel)]="rheader.Value">
         </th>
-        <td *ngFor="let tlist of GetTableList(rheader.Id)">
+        <td style="min-width:380px;" *ngFor="let tlist of GetTableList(rheader.Id)">
+          <!-- inline style because this is only for this specific TD's -->
           <div cdkDropList
-               class="row droplist"
                id={{tlist.UniqueId}}
+               class="row droplist"
                cdkDropListData={{tlist.List}}
                [cdkDropListConnectedTo]=aconfig.ConnectedToList
                (cdkDropListDropped)="drop($event)">
 
-            <!-- Show image -->
-            <div class="" style="max-width:320px; min-width:320px;" *ngFor="let item of tlist.List" cdkDrag>
+            <div class="col-12" *ngFor="let item of tlist.List" cdkDrag>
               <div class="card">
-                <div class="row">
-                  <div class="col-sm-4">
-                    <div class="imageBox" [ngStyle]="{ 'background-image': 'url(' + item.Image + ')'}"></div>
-                  </div>
-                  <div class="col-sm-8 text-center p-2">
-                    <textarea rows="3" maxlength="50" [(ngModel)]="item.Text" onkeydown="return (event.keyCode!=13)" class="text-center"></textarea>
+                <div class="container">
+                  <div class="row">
+
+                    <div class="col-xs-4">
+                      <img class="img-thumbnail" [src]="item.Image" />
+                    </div>
+                    <div class="col-xs-6 text-center p-1">
+                      <textarea type="text form-control" onkeydown="return (event.keyCode!=13)" [(ngModel)]="item.Text" class="input-group text-center"></textarea>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            &nbsp;
-            <!--<div class="box" [ngStyle]="{ 'background-image': 'url(' + item + ')'}" *ngFor="let item of tlist.List" cdkDrag></div>-->
           </div>
+
+
         </td>
         <td>
-          <input type="button" class="btn btn-sm btn-danger " value="Delete" (click)="RemoveRow(rheader.Id)" style="height:100%" />
+          <input type="button" class="btn btn-sm btn-danger btn-block " value="Delete" (click)="RemoveRow(rheader.Id)" />
         </td>
       </tr>
     </tbody>
@@ -57,7 +60,7 @@
       <tr>
         <td colspan="99" style="text-align: left;">
           <input type="button" class="btn btn-lg btn-success btn-block " value="Add Row" (click)="AddRow()" />
-          <input type="button" class="btn btn-primary btn-lg btn-block" value="Save" [disabled]="isDubbleNameUsed() != null" title="test" data-toggle="toolstip" data-placement="top" (click)="SaveConfiguration()" />
+          <input type="button" class="btn btn-primary btn-lg btn-block" value="Save" [disabled]="isDubbleNameUsed() != null" title="test" data-toggle="toolstip" data-placement="top" (click)="aconfig.SaveConfiguration(aconfig.SelectedTable)" />
         </td>
       </tr>
     </tfoot>

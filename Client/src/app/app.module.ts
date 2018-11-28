@@ -17,7 +17,7 @@ import { LoginToken } from './shared/logintoken';
 import { AdminConfig } from 'src/app/Admin/shared/AdminConfig';
 
 // routing
-import { Admin } from './admin/admin.component';
+import { Admin } from './Admin/admin.component';
 import { Login } from './login/login.component';
 import { Home } from './home/home.component';
 import { ToolboxComponent } from './Admin/toolbox/toolbox.component';

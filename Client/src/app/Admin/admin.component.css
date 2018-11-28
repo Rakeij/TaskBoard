@@ -2,8 +2,12 @@
   margin: 0%;
 }
 
-.subrow {
+.edit-row {
   margin: 2%;
+}
+.toolbox-row {
+  margin-top:2%;
+
 }
 
 .pointer {
@@ -13,6 +17,7 @@
 input {
   border: 0;
 }
+
 
 
 /*Config*/

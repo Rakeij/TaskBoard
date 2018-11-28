@@ -3,8 +3,7 @@ import { TableList, Header } from '../shared/tableConfiguration';
 import { AdminConfig } from 'src/app/Admin/shared/AdminConfig';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ToolboxItem } from '../shared/ToolboxItem';
-import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-edit-table',
@@ -12,17 +11,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./edit-table.component.css']
 })
 export class EditTableComponent implements OnInit {
-  private url_Configuration_Save = "";
 
-  constructor(private http: HttpClient, private aconfig: AdminConfig) { }
+  constructor(public aconfig: AdminConfig) { }
 
   ngOnInit() {
-    if (environment.production) {
-      this.url_Configuration_Save = "api/Configurations/Save";
-    }
-    else {
-      this.url_Configuration_Save = "http://localhost:4201/Configurations/Save";
-    }
   }
   // get tableList by Headers id
   public GetTableList(rowHeader: string): TableList[] {
@@ -101,7 +93,6 @@ export class EditTableComponent implements OnInit {
   }
 
 
-
   // Table buttons
   public RemoveColumn(event: any) {
     for (var i = 0; i < this.aconfig.SelectedTable.Table.ColumnHeaders.length; i++) {
@@ -128,7 +119,7 @@ export class EditTableComponent implements OnInit {
         this.aconfig.SelectedTable.Table.TableList[i].CId = (Number(this.aconfig.SelectedTable.Table.TableList[i].CId) - 1).toString();
       }
     }
-    //this.UpdateSelectedTable();
+    this.aconfig.UpdateSelectedTable();
   }
 
   public RemoveRow(event: any) {
@@ -155,7 +146,7 @@ export class EditTableComponent implements OnInit {
         this.aconfig.SelectedTable.Table.TableList[i].RId = (Number(this.aconfig.SelectedTable.Table.TableList[i].RId) - 1).toString();
       }
     }
-    //this.UpdateSelectedTable();
+    this.aconfig.UpdateSelectedTable();
   }
 
   public AddColumn() {
@@ -166,7 +157,7 @@ export class EditTableComponent implements OnInit {
         (newId).toString(),
         item.Id, []));
     });
-    //this.UpdateSelectedTable();
+    this.aconfig.UpdateSelectedTable();
   }
 
   public AddRow() {
@@ -178,23 +169,7 @@ export class EditTableComponent implements OnInit {
         (newId).toString(),
         []));
     });
-    //this.UpdateSelectedTable();
-  }
-
-
-  // Api Calls
-
-  public SaveConfiguration() {
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
-      })
-    };
-    this.http.post(this.url_Configuration_Save, JSON.stringify(this.aconfig.SelectedTable), httpOptions).subscribe((result) => {
-      alert('Saved');
-    });
+    this.aconfig.UpdateSelectedTable();
   }
 
 }

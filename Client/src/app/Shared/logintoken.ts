@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 export class LoginToken {
   get IsValid(): boolean {
     return true;
-
     if (this.Username == "admin" && this.Password == "admin")
       return true;
 

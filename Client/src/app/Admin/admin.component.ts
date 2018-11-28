@@ -1,5 +1,4 @@
 import { Component, OnInit, Injectable, HostListener } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdminConfig } from 'src/app/Admin/shared/AdminConfig';
 
 @Component({
@@ -11,8 +10,8 @@ import { AdminConfig } from 'src/app/Admin/shared/AdminConfig';
 
 @Injectable()
 export class Admin implements OnInit {
-  constructor(private aconfig: AdminConfig) {
-   
+  constructor(public aconfig: AdminConfig) {
+   // aconfig used in HTML
   }
   
   ngOnInit(): void {

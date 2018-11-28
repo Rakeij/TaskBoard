@@ -1,29 +1,36 @@
 <div id="toolbox" class="toolbox col-3">
+
   <div class="text-center">
-    <input type="button" class="btn btn-primary btn-lg configbuttons" value="Save"  title="test" data-toggle="toolstip" data-placement="top" (click)="SaveToolBox()" />
+    <input type="button" class="btn btn-primary btn-lg configbuttons" value="Save" title="test" data-toggle="toolstip" data-placement="top" (click)="aconfig.SaveToolBox()" />
   </div>
+
   <div cdkDropList
        id="toolboxList"
        class="row"
+       [cdkDropListData]="aconfig.ToolBoxItems"
        [cdkDropListConnectedTo]=aconfig.ConnectedToList
-       [cdkDropListData]="ToolBoxItems"
-       (cdkDropListDropped)="drop($event)"
-       [cdkDropListOrientation]="vertical">
+       (cdkDropListDropped)="drop($event)">
 
     <!-- Show image -->
-    <div class="container showImage" *ngFor="let item of aconfig.ToolBoxItems" cdkDrag>
+    <div class="col-12" *ngFor="let item of aconfig.ToolBoxItems" cdkDrag>
       <div class="card">
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="imageBox" [ngStyle]="{ 'background-image': 'url(' + item.Image + ')'}"></div>
-          </div>
-          <div class="col-sm-8 text-center p-2">
-            <textarea rows="3" maxlength="50" onkeydown="return (event.keyCode!=13)" [(ngModel)]="item.Text" class="text-center"></textarea>
+        <div class="container">
+          <div class="row">
+
+            <div class="col-xs-4">
+              <img class="img-thumbnail" [src]="item.Image" />
+            </div>
+            <div class="col-xs-8 text-center p-1">
+              <textarea type="text" onkeydown="return (event.keyCode!=13)" [(ngModel)]="item.Text" class="input-group text-center"></textarea>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- add new image -->
+  </div>
+
+
+  <div class="row">
     <div id="addImage"><input type="button" class="btn btn-primary btn-lg btn-block" value="Add image" /></div>
   </div>
 

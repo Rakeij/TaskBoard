@@ -1,23 +1,56 @@
 @media only screen and (max-width: 1200px) {
   #modifyTable {
-    margin-left: 350px;
+    margin-left: 400px;
   }
 }
 @media only screen and (min-width: 1201px) {
   #modifyTable {
-    margin-left: 30%;
+    margin-left: 25%;
   }
 }
 
-.imageBox {
-  border: 1px solid black;
-  width: 90px;
-  height: 90px;
-  background-size: cover;
-  display: table;
-  margin-top: 5px;
+.showImage {
+  max-width: 320px;
+  min-width: 320px;
 }
 
 textarea {
   resize: none;
+  height: 100%;
+  border:none;
 }
+
+input {
+margin:5px;
+}
+
+
+.img-thumbnail {
+  /*min-width: 60px;
+  min-height:60px;*/
+  max-height: 90px;
+  max-width: 90px;
+  /*prevent dragging image*/
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.droplist {
+height:100%;
+}
+
+
+table {
+  height: 100%;
+}
+
+  table tbody {
+    height:100%;
+  }
+  table td {
+    height:100%;
+  }
